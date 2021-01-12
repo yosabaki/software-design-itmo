@@ -10,17 +10,11 @@ import javax.servlet.http.HttpServletResponse
 /**
  * @author akirakozov
  */
-class AddProductServlet(private val productDao: ProductDao) : HttpServlet() {
-    override fun doGet(request: HttpServletRequest, response: HttpServletResponse) {
+class AddProductServlet(productDao: ProductDao) : AbstractProductServlet(productDao) {
+    override fun doGetImpl(request: HttpServletRequest, response: HttpServletResponse) {
         val name = request.getParameter("name")
         val price = request.getParameter("price").toLong()
-        try {
-            productDao.insert(Product(name, price))
-        } catch (e: Exception) {
-            throw RuntimeException(e)
-        }
-        response.contentType = "text/html"
-        response.status = HttpServletResponse.SC_OK
+        productDao.insert(Product(name, price))
         response.writer.println("OK")
     }
 }

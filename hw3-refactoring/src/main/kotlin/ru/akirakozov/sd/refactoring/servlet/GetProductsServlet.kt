@@ -9,17 +9,11 @@ import javax.servlet.http.HttpServletResponse
 /**
  * @author akirakozov
  */
-class GetProductsServlet(private val productDao: ProductDao) : HttpServlet() {
-    override fun doGet(request: HttpServletRequest, response: HttpServletResponse) {
-        try {
-            val products = productDao.getProducts()
-            HTMLBodyWriter(response.writer).use { body ->
-                products.forEach { body.addProduct(it) }
-            }
-        } catch (e: Exception) {
-            throw RuntimeException(e)
+class GetProductsServlet(productDao: ProductDao) : AbstractProductServlet(productDao) {
+    override fun doGetImpl(request: HttpServletRequest, response: HttpServletResponse) {
+        val products = productDao.getProducts()
+        HTMLBodyWriter(response.writer).use { body ->
+            products.forEach { body.addProduct(it) }
         }
-        response.contentType = "text/html"
-        response.status = HttpServletResponse.SC_OK
     }
 }

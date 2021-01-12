@@ -9,57 +9,38 @@ import javax.servlet.http.HttpServletResponse
 /**
  * @author akirakozov
  */
-class QueryServlet(private val productDao: ProductDao) : HttpServlet() {
-    override fun doGet(request: HttpServletRequest, response: HttpServletResponse) {
-        val command = request.getParameter("command")
-        if ("max" == command) {
-            try {
-                val product = productDao.getMaxPriceProductOrNull()
-                HTMLBodyWriter(response.writer).use { body ->
+class QueryServlet(productDao: ProductDao) : AbstractProductServlet(productDao) {
+    override fun doGetImpl(request: HttpServletRequest, response: HttpServletResponse) {
+        HTMLBodyWriter(response.writer).use { body ->
+            when (val command = request.getParameter("command")) {
+                "max" -> {
+                    val product = productDao.getMaxPriceProductOrNull()
                     body.addHeader("Product with max price: ")
                     product?.let {
                         body.addProduct(it)
                     }
                 }
-            } catch (e: Exception) {
-                throw RuntimeException(e)
-            }
-        } else if ("min" == command) {
-            try {
-                val product = productDao.getMinPriceProductOrNull()
-                HTMLBodyWriter(response.writer).use { body ->
+                "min" -> {
+                    val product = productDao.getMinPriceProductOrNull()
                     body.addHeader("Product with min price: ")
                     product?.let {
                         body.addProduct(it)
                     }
                 }
-            } catch (e: Exception) {
-                throw RuntimeException(e)
-            }
-        } else if ("sum" == command) {
-            try {
-                val sum = productDao.getSum()
-                HTMLBodyWriter(response.writer).use { body ->
+                "sum" -> {
+                    val sum = productDao.getSum()
                     body.addHeader("Summary price: ")
                     body.add(sum)
                 }
-            } catch (e: Exception) {
-                throw RuntimeException(e)
-            }
-        } else if ("count" == command) {
-            try {
-                val cnt = productDao.getCount()
-                HTMLBodyWriter(response.writer).use { body ->
+                "count" -> {
+                    val cnt = productDao.getCount()
                     body.addHeader("Number of products: ")
                     body.add(cnt)
                 }
-            } catch (e: Exception) {
-                throw RuntimeException(e)
+                else -> {
+                    body.addHeader("Unknown command: $command")
+                }
             }
-        } else {
-            response.writer.println("Unknown command: $command")
         }
-        response.contentType = "text/html"
-        response.status = HttpServletResponse.SC_OK
     }
 }
