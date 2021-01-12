@@ -1,43 +1,33 @@
-package ru.akirakozov.sd.refactoring.servlet;
+package ru.akirakozov.sd.refactoring.servlet
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.DriverManager
+import javax.servlet.http.HttpServlet
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 /**
  * @author akirakozov
  */
-public class GetProductsServlet extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+class GetProductsServlet : HttpServlet() {
+    override fun doGet(request: HttpServletRequest, response: HttpServletResponse) {
         try {
-            try (Connection c = DriverManager.getConnection("jdbc:sqlite:test.db")) {
-                Statement stmt = c.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM PRODUCT");
-                response.getWriter().println("<html><body>");
-
+            DriverManager.getConnection("jdbc:sqlite:test.db").use { c ->
+                val stmt = c.createStatement()
+                val rs = stmt.executeQuery("SELECT * FROM PRODUCT")
+                response.writer.println("<html><body>")
                 while (rs.next()) {
-                    String  name = rs.getString("name");
-                    int price  = rs.getInt("price");
-                    response.getWriter().println(name + "\t" + price + "</br>");
+                    val name = rs.getString("name")
+                    val price = rs.getInt("price")
+                    response.writer.println("$name\t$price</br>")
                 }
-                response.getWriter().println("</body></html>");
-
-                rs.close();
-                stmt.close();
+                response.writer.println("</body></html>")
+                rs.close()
+                stmt.close()
             }
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (e: Exception) {
+            throw RuntimeException(e)
         }
-
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
+        response.contentType = "text/html"
+        response.status = HttpServletResponse.SC_OK
     }
 }
