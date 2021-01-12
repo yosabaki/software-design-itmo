@@ -1,0 +1,4 @@
+ru\akirakozov\sd\refactoring\Main.class
+ru\akirakozov\sd\refactoring\servlet\GetProductsServlet.class
+ru\akirakozov\sd\refactoring\servlet\QueryServlet.class
+ru\akirakozov\sd\refactoring\servlet\AddProductServlet.class
