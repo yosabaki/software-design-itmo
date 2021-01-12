@@ -1,5 +1,6 @@
+package html
+
 import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import ru.akirakozov.sd.refactoring.entities.Product
 import ru.akirakozov.sd.refactoring.html.HTMLBodyWriter

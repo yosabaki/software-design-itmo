@@ -1,3 +1,5 @@
+package dao
+
 import org.junit.After
 import org.junit.Test
 import ru.akirakozov.sd.refactoring.dao.SQLProductDao
