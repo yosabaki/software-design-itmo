@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse
 
 abstract class AbstractProductServlet(protected val productDao: ProductDao) : HttpServlet() {
 
-    override fun doGet(request: HttpServletRequest, response: HttpServletResponse) {
+    public override fun doGet(request: HttpServletRequest, response: HttpServletResponse) {
         try {
             doGetImpl(request, response)
         } catch (e: Exception) {

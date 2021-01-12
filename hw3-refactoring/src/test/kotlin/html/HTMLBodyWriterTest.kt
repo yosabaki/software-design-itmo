@@ -8,9 +8,6 @@ import java.io.PrintWriter
 import java.io.StringWriter
 import kotlin.test.assertEquals
 
-private val SEP = System.lineSeparator()
-private val HTML_BODY_HEAD = "<html><body>$SEP"
-private val HTML_BODY_TAIL = "</body></html>$SEP"
 
 class HTMLBodyWriterTest {
     private val stringWriter = StringWriter()
@@ -52,7 +49,5 @@ class HTMLBodyWriterTest {
         val line = "${product.name}\t${product.price}</br>$SEP"
         assertEquals(wrapHtmlBody(line), stringWriter.toString())
     }
-
-    private fun wrapHtmlBody(content: String) = "$HTML_BODY_HEAD$content$HTML_BODY_TAIL"
 
 }
