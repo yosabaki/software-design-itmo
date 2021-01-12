@@ -2,7 +2,6 @@ package ru.akirakozov.sd.refactoring.html
 
 import ru.akirakozov.sd.refactoring.entities.Product
 import java.io.PrintWriter
-import javax.servlet.http.HttpServletResponse
 
 class HTMLBodyWriter(private val writer: PrintWriter) : AutoCloseable {
     init {

@@ -13,13 +13,17 @@ import ru.akirakozov.sd.refactoring.servlet.QueryServlet
  */
 fun main() {
     val productDao = SQLProductDao()
+
     val server = Server(8081)
+
     val context = ServletContextHandler(ServletContextHandler.SESSIONS)
     context.contextPath = "/"
     server.handler = context
+
     context.addServlet(ServletHolder(AddProductServlet(productDao)), "/add-product")
     context.addServlet(ServletHolder(GetProductsServlet(productDao)), "/get-products")
     context.addServlet(ServletHolder(QueryServlet(productDao)), "/query")
+
     server.start()
     server.join()
 }
