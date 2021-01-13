@@ -2,7 +2,7 @@ package token
 
 import visitor.TokenVisitor
 
-class NumberToken : Token {
+data class NumberToken(val value: Int) : Token {
     override fun accept(visitor: TokenVisitor) {
         TODO("Not yet implemented")
     }

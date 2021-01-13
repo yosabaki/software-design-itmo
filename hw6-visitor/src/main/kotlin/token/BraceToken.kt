@@ -2,7 +2,11 @@ package token
 
 import visitor.TokenVisitor
 
-class BraceToken : Token {
+enum class BraceType {
+    LEFT, RIGHT
+}
+
+data class BraceToken(val type: BraceType) : Token {
     override fun accept(visitor: TokenVisitor) {
         TODO("Not yet implemented")
     }
