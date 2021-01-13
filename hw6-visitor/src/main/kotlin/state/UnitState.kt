@@ -1,11 +1,13 @@
 package state
 
-import token.NumberToken
-import token.Token
-import token.Tokenizer
+import token.*
 
-class NumberState : State {
+class UnitState : State {
     override fun create(tokenizer: Tokenizer): Token {
+        if (tokenizer.currentChar == ')') {
+            tokenizer.nextChar()
+            return BraceToken(BraceType.RIGHT)
+        }
         val sb = StringBuilder()
         while (!tokenizer.isEof() && tokenizer.isNumber()) {
             sb.append(tokenizer.nextChar())
@@ -17,8 +19,8 @@ class NumberState : State {
             tokenizer.run {
                 when {
                     isEof() -> EndState()
-                    isNumber() -> NumberState()
-                    isBrace() || isOperation() -> StartState()
+                    currentChar == ')' -> UnitState()
+                    isOperation() -> OperationState()
                     else -> ErrorState("Unexpected symbol: $currentChar")
                 }
             }

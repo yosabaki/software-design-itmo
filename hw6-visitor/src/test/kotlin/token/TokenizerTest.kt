@@ -20,12 +20,17 @@ class TokenizerTest {
     fun operationTest() {
         assertEquals(
                 listOf(
+                        NumberToken(1),
                         OperationToken(PLUS),
+                        NumberToken(2),
                         OperationToken(MINUS),
+                        NumberToken(3),
                         OperationToken(TIMES),
+                        NumberToken(4),
                         OperationToken(DIVIDE),
+                        NumberToken(5),
                 ),
-                tokenizer.tokenize("+-*/")
+                tokenizer.tokenize("1+2-3*4/5")
         )
     }
 
@@ -34,9 +39,10 @@ class TokenizerTest {
         assertEquals(
                 listOf(
                         BraceToken(LEFT),
+                        NumberToken(1),
                         BraceToken(RIGHT)
                 ),
-                tokenizer.tokenize("()")
+                tokenizer.tokenize("(1)")
         )
     }
 

@@ -7,7 +7,13 @@ enum class BraceType {
 }
 
 data class BraceToken(val type: BraceType) : Token {
+    val isLeft: Boolean
+        get() = type == BraceType.LEFT
+
+    val isRight: Boolean
+        get() = type == BraceType.RIGHT
+
     override fun accept(visitor: TokenVisitor) {
-        TODO("Not yet implemented")
+        visitor.visit(this)
     }
 }
