@@ -15,24 +15,24 @@ class PrintVisitor : TokenVisitor {
     }
 
     override fun visit(token: NumberToken) {
-        builder.append(token.value)
+        append(token.value)
     }
 
     override fun visit(token: BraceToken) {
-        val char = when (token.type) {
-            LEFT -> '('
-            RIGHT -> ')'
-        }
-        builder.append(char)
+        throw UnsupportedOperationException()
     }
 
     override fun visit(token: OperationToken) {
-        val sequence = when (token.type) {
-            PLUS -> " + "
-            MINUS -> " - "
-            TIMES -> " * "
-            DIVIDE -> " / "
+        val symbol = when (token.type) {
+            PLUS -> '+'
+            MINUS -> '-'
+            TIMES -> '*'
+            DIVIDE -> '/'
         }
-        builder.append(sequence)
+        append(symbol)
+    }
+
+    private fun append(value: Any) {
+        builder.append(value).append(' ')
     }
 }
