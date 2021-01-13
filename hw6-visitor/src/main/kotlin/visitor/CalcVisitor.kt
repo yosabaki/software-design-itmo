@@ -8,6 +8,7 @@ class CalcVisitor : TokenVisitor {
     private val stack = mutableListOf<Int>()
 
     fun eval(tokens: List<Token>): Int {
+        stack.clear()
         if (tokens.isEmpty()) {
             return 0
         }
