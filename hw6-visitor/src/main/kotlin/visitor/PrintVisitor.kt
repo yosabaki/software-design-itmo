@@ -1,7 +1,6 @@
 package visitor
 
 import token.*
-import token.BraceType.*
 import token.OperationType.*
 
 class PrintVisitor : TokenVisitor {
