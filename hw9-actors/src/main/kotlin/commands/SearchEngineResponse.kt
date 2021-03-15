@@ -2,4 +2,18 @@ package commands
 
 import search.SearchResult
 
-data class SearchEngineResponse(val requestId: Long, val searchResults: List<SearchResult>) : Command
+sealed class SearchEngineResponse : Command
+
+data class SearchEngineResponseSuccess(val requestId: Long, val searchResults: List<SearchResult>) :
+    SearchEngineResponse() {
+    override fun toString(): String {
+        return searchResults.joinToString(separator = ",\n") { "$it" }
+    }
+}
+
+object SearchEngineResponseTimeout : SearchEngineResponse() {
+    override fun toString(): String {
+        return "TIMEOUT"
+    }
+}
+

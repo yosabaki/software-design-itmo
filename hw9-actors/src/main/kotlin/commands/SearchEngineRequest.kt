@@ -8,5 +8,5 @@ data class SearchEngineRequest(
     val searchQuery: String,
     val returnResultSize: Int = 10,
     val timeout: Duration = Duration.ofMillis(10000),
-    val replyTo: ActorRef<Command>
+    val replyTo: ActorRef<in SearchEngineResponseSuccess>
 ) : Command

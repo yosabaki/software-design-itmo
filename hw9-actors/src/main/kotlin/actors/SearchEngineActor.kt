@@ -9,6 +9,7 @@ import akka.actor.typed.javadsl.Receive
 import commands.Command
 import commands.SearchEngineRequest
 import commands.SearchEngineResponse
+import commands.SearchEngineResponseSuccess
 import search.SearchEngine
 
 class SearchEngineActor private constructor(
@@ -25,7 +26,7 @@ class SearchEngineActor private constructor(
 
     private fun onSearchRequest(r: SearchEngineRequest): Behavior<Command> {
         r.replyTo.tell(
-            SearchEngineResponse(
+            SearchEngineResponseSuccess(
                 r.requestId,
                 searchEngine.query(
                     r.searchQuery,

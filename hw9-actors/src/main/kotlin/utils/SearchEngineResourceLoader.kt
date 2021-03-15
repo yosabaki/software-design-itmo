@@ -8,7 +8,7 @@ import java.io.Reader
 class SearchEngineResourceLoader(val resourceReader: Reader) {
     fun loadSearchResults() : Map<String, List<SearchResult>> {
         val json = Klaxon().parseJsonObject(resourceReader)
-        return json.mapValues { (key, array) ->
+        return json.mapValues { (_, array) ->
             array as JsonArray<*>
             Klaxon().parseFromJsonArray(array)!!
         }
