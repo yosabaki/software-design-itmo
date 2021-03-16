@@ -8,7 +8,6 @@ import akka.actor.typed.javadsl.Behaviors
 import akka.actor.typed.javadsl.Receive
 import commands.Command
 import commands.SearchEngineRequest
-import commands.SearchEngineResponse
 import commands.SearchEngineResponseSuccess
 import search.SearchEngine
 
