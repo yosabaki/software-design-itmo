@@ -10,5 +10,5 @@ enum class Currency {
             EUR -> 40
         }
 
-    fun convert(price: Int, other : Currency) = price / this.multiplier * other.multiplier
+    fun convert(price: Int, other : Currency) = price * this.multiplier / other.multiplier
 }

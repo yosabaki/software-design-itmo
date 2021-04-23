@@ -12,7 +12,7 @@ class ProductService(private val productRepository: ProductRepository) {
 
     fun createProduct(product: Product): Mono<Product> = productRepository.save(product)
 
-    fun deleteProduct(id: Long): Mono<Void> = productRepository.deleteById(id)
+    fun deleteProduct(id: Long): Mono<Void?> = productRepository.deleteById(id)
 
     fun getAllProducts(): Flux<Product> = productRepository.findAll()
 }

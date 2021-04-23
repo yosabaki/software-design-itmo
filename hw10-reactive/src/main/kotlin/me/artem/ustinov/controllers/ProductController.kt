@@ -23,5 +23,5 @@ class ProductController(private val productService: ProductService) {
     fun createProduct(@RequestBody product: Product) = productService.createProduct(product)
 
     @DeleteMapping("/{id}")
-    fun deleteProduct(@PathVariable id: Long) : Mono<Void> = productService.deleteProduct(id)
+    fun deleteProduct(@PathVariable id: Long) : Mono<Void?> = productService.deleteProduct(id)
 }

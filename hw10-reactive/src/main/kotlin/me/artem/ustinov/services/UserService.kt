@@ -20,7 +20,7 @@ class UserService(private val userRepository: UserRepository, private val produc
     fun getProducts(id: Long): Flux<Product> =
         userRepository.findById(id).flatMapMany { user ->
             productRepository.findAll().map { product ->
-                product.copy(price = product.currency.convert(product.price, user.currency))
+                product.copy(price = product.currency.convert(product.price, user.currency), currency = user.currency)
             }
         }
 }
