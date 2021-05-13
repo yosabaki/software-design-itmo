@@ -22,12 +22,18 @@ dependencies {
     implementation(group = "org.springframework.boot", name = "spring-boot-starter-webflux")
     implementation(group = "org.springframework.boot", name = "spring-boot-devtools")
 
-    implementation(group = "io.r2dbc", name =  "r2dbc-postgresql", version =  "0.8.7.RELEASE")
-    implementation(group =  "org.postgresql", name =  "postgresql", version =  "42.2.19")
+    implementation(group = "io.r2dbc", name = "r2dbc-postgresql", version = "0.8.7.RELEASE")
+    implementation(group = "org.postgresql", name = "postgresql", version = "42.2.19")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.4.32")
-    implementation(group =  "org.springframework", name =  "spring-jdbc", version =  "5.3.5")
+    implementation(group = "org.springframework", name = "spring-jdbc", version = "5.3.5")
 
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.testcontainers:junit-jupiter:1.15.3")
+    testImplementation("org.testcontainers:r2dbc:1.15.3")
+    testImplementation("org.testcontainers:postgresql:1.15.3")
 }
 
 tasks.withType<KotlinCompile> {
