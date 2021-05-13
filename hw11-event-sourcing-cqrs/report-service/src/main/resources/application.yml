@@ -1,0 +1,14 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: REPORT SERVICE
+  datasource:
+    url: jdbc:postgresql://localhost:5432/event_store
+    driver-class-name: org.postgresql.Driver
+    username: event
+    password: cqrs
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect

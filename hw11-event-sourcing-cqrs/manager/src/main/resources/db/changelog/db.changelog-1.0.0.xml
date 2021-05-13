@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="1" author="USTINOV.AP">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="events"/>
+            </not>
+        </preConditions>
+        <createTable tableName="events" remarks="Events">
+            <column autoIncrement="true" name="user_event_id" type="SERIAL" remarks="Event Id"/>
+            <column name="user_id" type="VARCHAR(36)" remarks="User Id"/>
+        </createTable>
+        <addPrimaryKey tableName="events" columnNames="user_event_id,user_id"/>
+        <sql>
+            CREATE TYPE Entity AS ENUM ('USER');
+
+            CREATE TYPE GateEventType AS ENUM ('ENTER', 'EXIT');
+
+            CREATE TABLE SubscriptionEvents
+            (
+            user_id       varchar(36)       NOT NULL,
+            user_event_id INT       NOT NULL,
+            end_date      TIMESTAMP NOT NULL,
+            PRIMARY KEY (user_id, user_event_id),
+            FOREIGN KEY (user_id, user_event_id) REFERENCES Events (user_id, user_event_id)
+            );
+
+            CREATE TABLE GateEvents
+            (
+            user_id         varchar(36)           NOT NULL,
+            user_event_id   INT           NOT NULL,
+            gate_event_type GateEventType NOT NULL,
+            event_timestamp TIMESTAMP     NOT NULL,
+            PRIMARY KEY (user_id, user_event_id),
+            FOREIGN KEY (user_id, user_event_id) REFERENCES Events (user_id, user_event_id)
+            );
+        </sql>
+    </changeSet>
+    <changeSet id="2" author="Ustinov.AP">
+        <createSequence sequenceName="user_sequence" minValue="1" incrementBy="1"/>
+    </changeSet>
+
+</databaseChangeLog>

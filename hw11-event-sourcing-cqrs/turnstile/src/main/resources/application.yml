@@ -1,0 +1,14 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: TURNSTILE SERVICE
+  datasource:
+    url: jdbc:postgresql://localhost:5432/event_store
+    driver-class-name: org.postgresql.Driver
+    username: event
+    password: cqrs
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
